@@ -25,8 +25,8 @@ contact: organisers@example.org        # placeholder
 
 mailing_list:
   provider: google_groups
-  group: physics-age-ai                # → physics-age-ai@googlegroups.com (placeholder name)
-  live: false                          # set to true once the Google Group exists
+  group: physics-ai                    # → physics-ai@googlegroups.com
+  live: true                           # false shows a "not connected yet" notice instead
 
 repository: giulio-biroli/physics-ai   # GitHub repository holding the site source
 prototype: true                        # "under construction" banner, and asks search engines not to index the site
