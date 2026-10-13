@@ -3,7 +3,7 @@ title: Why a seminar on physics in the age of AI?
 author: The organisers
 excerpt: AI heralds a profound change in every scientific discipline. Mathematics is already experiencing it head-on; physics is beginning to as well.
 ---
-AI heralds a profound change in every scientific discipline. Mathematics is already experiencing it head-on, and physics is now beginning to as well: AI accelerates our research processes, provides new building blocks for our methods, is a subject of research in its own right, and can autonomously take on part of our work.
+AI heralds a profound change in every scientific discipline. Mathematics is already experiencing it head-on, and physics is now beginning to as well.
 
 We think this is the right moment to reflect together on how AI will transform the way we do physics — from theory to experiment — and also the way we publish, hire and train; and on how to use it well, keeping our role as researchers at the centre. These questions matter for researchers, and even more for students, PhD candidates and early-career researchers, whose training and careers will unfold in this new context.
 

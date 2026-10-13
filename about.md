@@ -6,7 +6,7 @@ lede: A cross-disciplinary seminar on the interplay between artificial intellige
 ---
 ## Aims
 
-AI heralds a profound change in every scientific discipline. Mathematics is already experiencing it head-on, and physics is now beginning to as well: AI accelerates our research processes, provides new building blocks for our methods, is a subject of research in its own right, and can autonomously take on part of our work.
+AI heralds a profound change in every scientific discipline. Mathematics is already experiencing it head-on, and physics is now beginning to as well.
 
 This is the right time to reflect together on how AI will transform the way we do physics — from theory to experiment — as well as publishing, hiring and training. These questions are many and pressing. It is important to address them as well as we can: for researchers, and even more so for students, PhD candidates and early-career researchers. A central theme is the good use of AI: using it in a way that keeps our role as researchers at the centre, and continues to maintain and develop it.
 
