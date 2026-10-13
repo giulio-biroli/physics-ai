@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0f1114">
+{% if site.prototype %}<meta name="robots" content="noindex">
+{% endif %}
+{%- seo %}
+{%- feed_meta %}
+<link rel="icon" href="{{ '/assets/img/favicon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+{%- if page.math %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.querySelector('.prose'),{delimiters:[{left:'\\[',right:'\\]',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+{%- endif %}
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+{% if site.prototype %}<div class="proto-banner"><strong>Under construction</strong> — the sessions, dates and speakers shown are placeholders</div>{% endif %}
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">{% include logo.html %}<span class="brand-name">Physics in the <em>Age of AI</em></span></a>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        {%- for item in site.data.navigation %}
+        <li><a href="{{ item.url | relative_url }}"{% if page.url contains item.url %} aria-current="page"{% endif %}>{{ item.title }}</a></li>
+        {%- endfor %}
+        <li class="nav-cta"><a class="btn btn-primary btn-small" href="{{ '/subscribe/' | relative_url }}"{% if page.url == '/subscribe/' %} aria-current="page"{% endif %}>Subscribe</a></li>
+      </ul>
+    </nav>
+    <div class="header-tools">
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="main">
+{{ content }}
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <a class="brand" href="{{ '/' | relative_url }}">{% include logo.html %}<span class="brand-name">Physics in the <em>Age of AI</em></span></a>
+        <p>{{ site.tagline }} {{ site.venue.name }}, {{ site.venue.address }}.</p>
+        <p>Contact: <a href="mailto:{{ site.contact }}">{{ site.contact }}</a></p>
+      </div>
+      <nav aria-label="Footer">
+        <h2>Seminar</h2>
+        <ul>
+          {%- for item in site.data.navigation %}
+          <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+          {%- endfor %}
+        </ul>
+      </nav>
+      <div>
+        <h2>Follow</h2>
+        <ul>
+          <li><a href="{{ '/subscribe/' | relative_url }}">Mailing list</a></li>
+          <li><a href="{{ '/subscribe/' | relative_url }}#calendar">Calendar feed</a></li>
+          <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+          <li><a href="https://github.com/{{ site.repository }}">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {{ site.time | date: "%Y" }} Physics in the Age of AI</span>
+      <span>Hosted on GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+<script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+{%- if page.figures %}
+<script src="{{ '/assets/js/figures.js' | relative_url }}" defer></script>
+{%- endif %}
+</body>
+</html>

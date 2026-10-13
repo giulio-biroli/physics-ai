@@ -1,0 +1,10 @@
+# The three kinds of talks. `key` is used in each event's `theme:` field.
+- key: perspectives
+  name: Perspectives
+  description: Overviews of how AI could transform the discipline, its practices and the training of physicists.
+- key: results
+  name: Results
+  description: The physics content of new results obtained with AI, and how AI was used to obtain them.
+- key: methods
+  name: Methods
+  description: How to use AI well in physics — for researchers, PhD candidates and students.

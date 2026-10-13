@@ -1,0 +1,66 @@
+---
+layout: default
+title: Resources
+---
+{%- assign now = site.time | date: "%s" | plus: 0 -%}
+{%- assign events = site.events | sort: "date" | reverse -%}
+{%- assign talks = "" | split: "" -%}
+{%- for e in events -%}
+  {%- assign e_end = e.end | default: e.date | date: "%s" | plus: 0 -%}
+  {%- if e_end < now %}{% if e.slides or e.video %}{% assign talks = talks | push: e %}{% endif %}{% endif -%}
+{%- endfor -%}
+<section class="page-head">
+  <div class="container">
+    <h1>Resources</h1>
+    <p>Slides and recordings of past sessions, notes and guides, and background reading.</p>
+  </div>
+</section>
+<div class="container page-body">
+  <section class="res-section" id="talks">
+    <h2>Slides and recordings</h2>
+    {%- if talks.size > 0 %}
+    <table class="talks-table">
+      <thead><tr><th scope="col">Date</th><th scope="col">Session</th><th scope="col">Material</th></tr></thead>
+      <tbody>
+        {%- for e in talks %}
+        <tr>
+          <td>{{ e.date | date: "%-d %b %Y" }}</td>
+          <td><a href="{{ e.url | relative_url }}">{{ e.title }}</a><br><span class="muted">{{ e.speaker }}</span></td>
+          <td class="event-materials">
+            {% if e.slides %}<a class="chip" href="{{ e.slides | relative_url }}">Slides</a>{% endif %}
+            {% if e.video %}<a class="chip" href="{{ e.video }}">Recording</a>{% endif %}
+          </td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+    {%- else %}
+    <p class="empty">Material from past sessions will be collected here: slides as PDF files, links to recordings, and references.</p>
+    {%- endif %}
+    {%- if site.prototype %}
+    {% include example-past.html %}
+    {%- endif %}
+  </section>
+
+  {%- for sec in site.data.resources %}
+  <section class="res-section">
+    <h2>{{ sec.section }}</h2>
+    <ul class="res-list">
+      {%- for it in sec.entries %}
+      <li class="res-item">
+        <span class="res-type">{{ it.type }}</span>
+        <div>
+          <h3 class="res-title">{% if it.url %}<a href="{% if it.url contains '://' %}{{ it.url }}{% else %}{{ it.url | relative_url }}{% endif %}">{{ it.title }}</a>{% else %}{{ it.title }}{% endif %}{% if it.status %}<span class="status">{{ it.status }}</span>{% endif %}</h3>
+          {%- if it.authors %}
+          <p class="res-meta">{{ it.authors }}{% if it.source %} · <em>{{ it.source }}</em>{% endif %}</p>
+          {%- endif %}
+          {%- if it.description %}
+          <p class="res-desc">{{ it.description }}</p>
+          {%- endif %}
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endfor %}
+</div>

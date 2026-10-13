@@ -1,0 +1,2 @@
+{%- assign strand = site.data.strands | where: "key", include.key | first -%}
+<span class="tag tag--{{ include.key }}">{{ strand.name | default: include.key }}</span>

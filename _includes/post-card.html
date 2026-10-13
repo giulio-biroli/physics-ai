@@ -1,0 +1,7 @@
+{%- assign p = include.post -%}
+{%- assign minutes = p.content | number_of_words | divided_by: 220 | at_least: 1 -%}
+<a class="post-card" href="{{ p.url | relative_url }}">
+  <p class="post-date">{{ p.date | date: "%-d %B %Y" }} · {{ minutes }} min read</p>
+  <h3>{{ p.title }}</h3>
+  <p class="post-excerpt">{{ p.excerpt | strip_html | strip }}</p>
+</a>

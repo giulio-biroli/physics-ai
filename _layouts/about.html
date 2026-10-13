@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<section class="page-head">
+  <div class="container">
+    <h1>About the seminar</h1>
+    <p>{{ page.lede }}</p>
+  </div>
+</section>
+<div class="container page-body">
+  <div class="about-grid">
+    <div class="prose">{{ content }}</div>
+    <aside class="about-aside">
+      <section class="side-card">
+        <h2>Organisers</h2>
+        <ul>
+          {%- for o in site.data.organisers %}
+          <li><strong>{{ o.name }}</strong><span>{{ o.affiliation }}</span></li>
+          {%- endfor %}
+        </ul>
+      </section>
+      <section class="side-card">
+        <h2>Venue</h2>
+        <p>Room {{ site.venue.room }}<br>{{ site.venue.name }}<br>{{ site.venue.address }}</p>
+        <p><a href="{{ site.venue.map }}">Map</a></p>
+      </section>
+      <section class="side-card">
+        <h2>Contact</h2>
+        <p>Suggestions for speakers and topics are welcome.</p>
+        <p><a href="mailto:{{ site.contact }}">{{ site.contact }}</a></p>
+      </section>
+    </aside>
+  </div>
+</div>

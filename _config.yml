@@ -1,0 +1,64 @@
+# Site settings. GitHub Pages builds the site with Jekyll from this file.
+
+title: Physics in the Age of AI
+tagline: A cross-disciplinary seminar on the interplay between artificial intelligence and physics.
+description: >-
+  Physics in the Age of AI is a cross-disciplinary seminar series on how
+  artificial intelligence is changing physics: research, publishing, hiring
+  and training.
+lang: en
+timezone: Europe/Paris
+
+# Published address (GitHub Pages project site). Replace with a custom domain later if wanted.
+url: https://giulio-biroli.github.io
+baseurl: /physics-ai
+
+host: ENS-PSL, Paris
+season: 2026–2027
+venue:
+  name: Laboratoire de Physique de l'École normale supérieure – PSL
+  room: Conf. IV
+  address: 24 rue Lhomond, 75005 Paris
+  map: https://www.openstreetmap.org/search?query=24%20rue%20Lhomond%2C%20Paris
+
+contact: organisers@example.org        # placeholder
+
+mailing_list:
+  provider: google_groups
+  group: physics-age-ai                # → physics-age-ai@googlegroups.com (placeholder name)
+  live: false                          # set to true once the Google Group exists
+
+repository: giulio-biroli/physics-ai   # GitHub repository holding the site source
+prototype: true                        # "under construction" banner, and asks search engines not to index the site
+
+# --- Jekyll ---------------------------------------------------------------
+collections:
+  events:
+    output: true
+    permalink: /programme/:name/
+permalink: /blog/:title/
+defaults:
+  - scope:
+      path: ""
+      type: events
+    values:
+      layout: event
+      room: Conf. IV
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: The organisers
+future: true
+markdown: kramdown
+theme: null                            # no GitHub Pages default theme (the site has its own layouts)
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

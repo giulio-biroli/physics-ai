@@ -1,0 +1,60 @@
+---
+layout: default
+---
+{%- assign events = site.events | sort: "date" -%}
+{%- for e in events %}{% if e.url == page.url %}{% assign number = forloop.index %}{% endif %}{% endfor -%}
+{%- assign e_end = page.end | default: page.date -%}
+{%- capture g_text %}{{ site.title }}: {{ page.title }}{% endcapture -%}
+{%- capture g_details %}Speaker: {{ page.speaker }}
+{{ page.url | absolute_url }}{% endcapture -%}
+{%- capture g_location %}Room {{ page.room }}, {{ site.venue.name }}, {{ site.venue.address }}{% endcapture -%}
+<div class="container">
+  <div class="event-layout">
+    <article>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ '/programme/' | relative_url }}">Programme</a> / Session {{ number }}</nav>
+      <div class="event-meta">{% include tag.html key=page.theme %}<span class="event-kind">{{ page.format }}</span></div>
+      <h1 class="event-heading">{{ page.title }}</h1>
+      <p class="event-byline"><strong>{{ page.speaker }}</strong>{% if page.affiliation %} · {{ page.affiliation }}{% endif %}</p>
+
+      <h2 class="sub-heading">Abstract</h2>
+      <div class="prose">{{ content }}</div>
+
+      {%- if page.bio %}
+      <h2 class="sub-heading">About the speaker</h2>
+      <div class="prose"><p>{{ page.bio }}</p></div>
+      {%- endif %}
+
+      <h2 class="sub-heading">Materials</h2>
+      {%- if page.slides or page.video or page.references %}
+      <div class="event-materials">
+        {% if page.slides %}<a class="chip" href="{{ page.slides | relative_url }}">Slides (PDF)</a>{% endif %}
+        {% if page.video %}<a class="chip" href="{{ page.video }}">Recording</a>{% endif %}
+        {% for r in page.references %}<a class="chip" href="{{ r.url }}">{{ r.title }}</a>{% endfor %}
+      </div>
+      {%- else %}
+      <p class="materials-empty">Slides, a recording when available, and references will be posted here after the session.</p>
+      {%- endif %}
+    </article>
+
+    <aside class="event-aside" aria-label="Practical information">
+      <dl class="facts">
+        <div><dt>Date</dt><dd>{{ page.date | date: "%A %-d %B %Y" }}</dd></div>
+        <div><dt>Time</dt><dd>{{ page.date | date: "%H:%M" }}–{{ e_end | date: "%H:%M" }} <span class="muted">(Paris time)</span></dd></div>
+        <div><dt>Place</dt><dd>Room {{ page.room }}<br>{{ site.venue.name }}<br>{{ site.venue.address }}<br><a href="{{ site.venue.map }}">Map</a></dd></div>
+        {%- if page.online %}
+        <div><dt>Online</dt><dd>{% if page.online contains 'http' %}<a href="{{ page.online }}">Video link</a>{% else %}{{ page.online }}{% endif %}</dd></div>
+        {%- endif %}
+      </dl>
+      <div class="aside-actions">
+        {%- if page.registration %}
+        <a class="btn btn-primary" href="{{ page.registration }}">Register</a>
+        {%- assign ics_class = "btn btn-secondary" %}
+        {%- else %}
+        {%- assign ics_class = "btn btn-primary" %}
+        {%- endif %}
+        {% include ics-link.html event=page class=ics_class label="Add to calendar (.ics)" %}
+        <a class="btn btn-secondary" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text={{ g_text | url_encode }}&amp;dates={{ page.date | date: '%Y%m%dT%H%M%S' }}/{{ e_end | date: '%Y%m%dT%H%M%S' }}&amp;ctz=Europe/Paris&amp;details={{ g_details | url_encode }}&amp;location={{ g_location | url_encode }}" target="_blank" rel="noopener">Add to Google Calendar</a>
+      </div>
+    </aside>
+  </div>
+</div>

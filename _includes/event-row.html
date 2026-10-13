@@ -1,0 +1,24 @@
+{%- assign e = include.event -%}
+{%- assign e_end = e.end | default: e.date -%}
+<li class="event-row" data-theme="{{ e.theme }}" data-end="{{ e_end | date_to_xmlschema }}">
+  <a class="event-link" href="{{ e.url | relative_url }}">
+    <div class="event-date">
+      <span class="event-day">{{ e.date | date: "%-d" }}</span>
+      <span class="event-month">{{ e.date | date: "%b %Y" }}</span>
+    </div>
+    <div class="event-body">
+      <div class="event-meta">{% include tag.html key=e.theme %}<span class="event-kind">{{ e.format }}</span></div>
+      <h3 class="event-title">{{ e.title }}</h3>
+      <p class="event-speaker">{{ e.speaker }}{% if e.affiliation %} · {{ e.affiliation }}{% endif %}</p>
+      <p class="event-when">{{ e.date | date: "%A" }}, {{ e.date | date: "%H:%M" }}–{{ e_end | date: "%H:%M" }} · Room {{ e.room }}</p>
+      {%- if include.past %}{% if e.slides or e.video or e.references %}
+      <div class="event-materials">
+        {% if e.slides %}<span class="chip">Slides</span>{% endif %}
+        {% if e.video %}<span class="chip">Recording</span>{% endif %}
+        {% if e.references %}<span class="chip">References</span>{% endif %}
+      </div>
+      {%- endif %}{% endif %}
+    </div>
+    <span class="event-arrow" aria-hidden="true">→</span>
+  </a>
+</li>

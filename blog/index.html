@@ -1,0 +1,26 @@
+---
+layout: default
+title: Blog
+---
+<section class="page-head">
+  <div class="container">
+    <h1>Blog</h1>
+    <p>News, notes and short essays from the organisers and speakers.</p>
+  </div>
+</section>
+<div class="container page-body">
+  <ol class="post-list">
+    {%- for p in site.posts %}
+    {%- assign minutes = p.content | number_of_words | divided_by: 220 | at_least: 1 %}
+    <li>
+      <a href="{{ p.url | relative_url }}">
+        <p class="post-date">{{ p.date | date: "%-d %B %Y" }} · {{ minutes }} min read</p>
+        <h2>{{ p.title }}</h2>
+        <p class="post-excerpt">{{ p.excerpt | strip_html | strip }}</p>
+        <p class="post-author">{{ p.author }}</p>
+      </a>
+    </li>
+    {%- endfor %}
+  </ol>
+  <p class="empty">New posts are also available as an <a href="{{ '/feed.xml' | relative_url }}">RSS feed</a>.</p>
+</div>

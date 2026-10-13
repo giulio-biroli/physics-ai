@@ -1,0 +1,143 @@
+---
+layout: default
+figures: true
+---
+{%- assign now = site.time | date: "%s" | plus: 0 -%}
+{%- assign events = site.events | sort: "date" -%}
+{%- assign upcoming = "" | split: "" -%}
+{%- for e in events -%}
+  {%- assign e_end = e.end | default: e.date | date: "%s" | plus: 0 -%}
+  {%- if e_end >= now %}{% assign upcoming = upcoming | push: e %}{% endif -%}
+{%- endfor -%}
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow"><span class="nowrap">Seminar series</span> · <span class="nowrap">{{ site.host }}</span> · <span class="nowrap">{{ site.season }}</span></p>
+      <h1 class="hero-title">Physics in the <em>Age of AI</em></h1>
+      <p class="lede">A cross-disciplinary seminar on the interplay between artificial intelligence and physics — from theory to experiment, and from research practice to publishing, hiring and training.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{{ '/programme/' | relative_url }}">See the programme</a>
+        <a class="btn btn-secondary" href="{{ '/subscribe/' | relative_url }}">Join the mailing list</a>
+      </div>
+    </div>
+    <div class="hero-figure">
+      <figure class="fig-diffusion" data-hero-figure>
+        <div class="fig-frame">
+          <canvas role="img" aria-label="Animation: figures from across physics emerging from random noise and dissolving back into it"></canvas>
+        </div>
+        <div class="fig-controls">
+          <button class="icon-btn" type="button" data-figure-toggle aria-pressed="false" aria-label="Pause animation">
+            <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+            <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>
+          </button>
+          <span class="fig-now" data-figure-label>Astrophysics · Spiral galaxy</span>
+          <span class="fig-count" data-figure-count>1 / 9</span>
+          <button class="icon-btn" type="button" data-figure-next aria-label="Next figure" title="Next figure">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+        <figcaption class="fig-caption"><span class="fig-label">Fig. 1</span>Figures from across physics emerge from Gaussian noise and dissolve back into it, as in AI generation by diffusion models.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="next" aria-label="Next session">
+  <div class="container">
+    {%- for e in upcoming %}
+    {%- assign e_end = e.end | default: e.date %}
+    <article class="next-card" data-next-card data-end="{{ e_end | date_to_xmlschema }}"{% unless forloop.first %} hidden{% endunless %}>
+      <div class="date-tile" aria-hidden="true">
+        <span class="d-week">{{ e.date | date: "%a" }}</span>
+        <span class="d-day">{{ e.date | date: "%-d" }}</span>
+        <span class="d-month">{{ e.date | date: "%b %Y" }}</span>
+      </div>
+      <div class="next-body">
+        <p class="eyebrow"><strong>Next session</strong> <span class="countdown" data-countdown="{{ e.date | date_to_xmlschema }}"></span></p>
+        <h2 class="next-title"><a href="{{ e.url | relative_url }}">{{ e.title }}</a></h2>
+        <p class="next-line">{{ e.speaker }}{% if e.affiliation %} · {{ e.affiliation }}{% endif %}</p>
+        <p class="next-line">{{ e.date | date: "%A %-d %B %Y" }}, {{ e.date | date: "%H:%M" }}–{{ e_end | date: "%H:%M" }} (Paris time) · Room {{ e.room }}, {{ site.venue.address }}</p>
+      </div>
+      <div class="next-actions">
+        <a class="btn btn-primary" href="{{ e.url | relative_url }}">Details</a>
+        {% include ics-link.html event=e class="btn btn-secondary" label="Add to calendar" %}
+      </div>
+    </article>
+    {%- endfor %}
+    <p class="next-empty" data-next-empty{% if upcoming.size > 0 %} hidden{% endif %}>The next session will be announced soon. <a href="{{ '/subscribe/' | relative_url }}">Join the mailing list</a> to be notified.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <h2>Why this seminar</h2>
+    <div>
+      <p class="big">AI heralds a profound change in every scientific discipline. Mathematics is already experiencing it head-on, and physics is beginning to as well.</p>
+      <p>AI accelerates our research processes, provides new building blocks for our methods, is a subject of research in its own right, and can autonomously take on part of our work. Now is the right time to reflect together on what this means for the way we do physics — from theory to experiment — and for publishing, hiring and training; and on how to use AI well, keeping our role as researchers at the centre. These questions matter for researchers, and even more for students, PhD candidates and early-career researchers.</p>
+      <a class="link-arrow" href="{{ '/about/' | relative_url }}">More about the seminar</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Three strands</h2>
+      <p>The talks address three complementary questions.</p>
+    </div>
+    <div class="strand-grid">
+      {%- for s in site.data.strands %}
+      <a class="strand strand--{{ s.key }}" href="{{ '/programme/' | relative_url }}?theme={{ s.key }}">
+        <span class="strand-num">0{{ forloop.index }}</span>
+        <h3>{{ s.name }}</h3>
+        <p>{{ s.description }}</p>
+        <span class="strand-more">See sessions →</span>
+      </a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Upcoming sessions</h2>
+      <a class="link-arrow" href="{{ '/programme/' | relative_url }}">Full programme</a>
+    </div>
+    <ol class="event-list" data-events-upcoming>
+      {%- for e in upcoming limit: 4 %}
+      {% include event-row.html event=e %}
+      {%- endfor %}
+    </ol>
+    <p class="empty" data-empty-upcoming{% if upcoming.size > 0 %} hidden{% endif %}>New sessions will be announced here and on the mailing list.</p>
+  </div>
+</section>
+
+{%- if site.posts.size > 0 %}
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>From the blog</h2>
+      <a class="link-arrow" href="{{ '/blog/' | relative_url }}">All posts</a>
+    </div>
+    <div class="post-grid">
+      {%- for p in site.posts limit: 2 %}
+      {% include post-card.html post=p %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+<section class="band">
+  <div class="container band-grid">
+    <div>
+      <h2>Stay informed</h2>
+      <p>Join the mailing list to receive the announcement of each session, or add the seminar calendar to your calendar app.</p>
+    </div>
+    <div class="band-actions">
+      <a class="btn btn-primary" href="{{ '/subscribe/' | relative_url }}">Join the mailing list</a>
+      <a class="btn btn-secondary" href="{{ '/subscribe/' | relative_url }}#calendar">Calendar feed</a>
+    </div>
+  </div>
+</section>

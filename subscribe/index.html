@@ -1,0 +1,51 @@
+---
+layout: default
+title: Mailing list
+---
+{%- assign ml = site.mailing_list -%}
+{%- capture sub_address %}{{ ml.group }}+subscribe@googlegroups.com{% endcapture -%}
+{%- if ml.live %}{% assign live = "true" %}{% else %}{% assign live = "false" %}{% endif -%}
+{%- assign feed = '/calendar.ics' | absolute_url -%}
+<section class="page-head">
+  <div class="container">
+    <h1>Mailing list</h1>
+    <p>We send one announcement per session, with the speaker, title, abstract and practical details. Your address is used for nothing else, and you can unsubscribe at any time.</p>
+  </div>
+</section>
+<div class="container page-body">
+  <div class="sub-grid">
+    <section class="sub-card">
+      <span class="sub-kicker">Any email address</span>
+      <h2>Subscribe by email</h2>
+      <p>Send an empty email to the address below, then confirm by replying to the message you receive.</p>
+      <div class="addr"><code>{{ sub_address }}</code><button class="icon-btn" type="button" data-copy="{{ sub_address }}">Copy</button></div>
+      <a class="btn btn-primary" href="mailto:{{ sub_address }}?subject=Subscribe" data-list-action data-list-live="{{ live }}">Write the email</a>
+    </section>
+    <section class="sub-card">
+      <span class="sub-kicker">Google account</span>
+      <h2>Join on Google Groups</h2>
+      <p>If you have a Google account, open the group page and click <em>Join group</em>. You can choose to receive every message or a digest.</p>
+      <a class="btn btn-secondary" href="https://groups.google.com/g/{{ ml.group }}" data-list-action data-list-live="{{ live }}">Open the group page</a>
+    </section>
+  </div>
+  <p class="notice" data-list-notice tabindex="-1" hidden>The mailing list will be connected as soon as the Google Group has been created.</p>
+
+  <div class="more-grid">
+    <section id="calendar">
+      <h2>Seminar calendar</h2>
+      <p>Subscribe to the calendar feed and new sessions appear in your calendar automatically.</p>
+      <div class="addr"><code>{{ feed }}</code><button class="icon-btn" type="button" data-copy="{{ feed }}">Copy</button></div>
+      <ul>
+        <li><strong>Apple Calendar:</strong> <a href="{{ feed | replace: 'https://', 'webcal://' | replace: 'http://', 'webcal://' }}">subscribe</a>, or File → New Calendar Subscription.</li>
+        <li><strong>Google Calendar:</strong> Other calendars → From URL, then paste the address.</li>
+        <li><strong>Outlook:</strong> Add calendar → Subscribe from web.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Privacy</h2>
+      <p>The list is hosted on Google Groups. Only the organisers can see the list of members and send messages to it. Every message contains an unsubscribe link; you can also leave by writing to <code>{{ ml.group }}+unsubscribe@googlegroups.com</code>.</p>
+      <h2>Blog</h2>
+      <p>New posts are available as an <a href="{{ '/feed.xml' | relative_url }}">RSS feed</a>.</p>
+    </section>
+  </div>
+</div>

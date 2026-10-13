@@ -1,0 +1,27 @@
+# Documents and links shown on the Resources page (slides of past sessions are
+# added automatically from the events). PDFs go in assets/docs/ and are linked
+# as /assets/docs/<file>.pdf.
+
+- section: Notes and guides
+  entries:
+    - title: How the figure on our home page is made
+      type: Note
+      url: /blog/about-the-figure/
+      description: Nine figures from across physics, each shown on its own with what it represents and how it is computed.
+    - title: Working with AI in research — practical notes for students and PhD candidates
+      type: Guide
+      status: In preparation
+      description: Good practice for calculations, code, literature search and writing; how to check and document what an AI tool did.
+
+- section: Background reading
+  entries:
+    - title: Machine learning and the physical sciences
+      type: Review
+      authors: G. Carleo, I. Cirac, K. Cranmer, L. Daudet, M. Schuld, N. Tishby, L. Vogt-Maranto, L. Zdeborová
+      source: Rev. Mod. Phys. 91, 045002 (2019)
+      url: https://doi.org/10.1103/RevModPhys.91.045002
+    - title: Scientific background to the Nobel Prize in Physics 2024
+      type: Report
+      authors: Nobel Committee for Physics
+      source: “For foundational discoveries and inventions that enable machine learning with artificial neural networks”
+      url: https://www.nobelprize.org/prizes/physics/2024/advanced-information/

@@ -1,0 +1,57 @@
+---
+layout: default
+title: Programme
+---
+{%- assign now = site.time | date: "%s" | plus: 0 -%}
+{%- assign events = site.events | sort: "date" -%}
+{%- assign upcoming = "" | split: "" -%}
+{%- assign past = "" | split: "" -%}
+{%- for e in events -%}
+  {%- assign e_end = e.end | default: e.date | date: "%s" | plus: 0 -%}
+  {%- if e_end >= now %}{% assign upcoming = upcoming | push: e %}{% else %}{% assign past = past | push: e %}{% endif -%}
+{%- endfor -%}
+{%- assign past = past | reverse -%}
+<section class="page-head">
+  <div class="container">
+    <h1>Programme</h1>
+    <p>Sessions take place in room {{ site.venue.room }} at the {{ site.venue.name }}, {{ site.venue.address }}. They take different formats: talks followed by an open discussion, round tables, series of informal presentations. Times are given in Paris time.</p>
+  </div>
+</section>
+<div class="container page-body">
+  <div class="filters" role="group" aria-label="Filter sessions by strand">
+    <button class="filter" type="button" data-filter="all" aria-pressed="true">All sessions</button>
+    {%- for s in site.data.strands %}
+    <button class="filter" type="button" data-filter="{{ s.key }}" aria-pressed="false"><span class="dot dot--{{ s.key }}" aria-hidden="true"></span>{{ s.name }}</button>
+    {%- endfor %}
+  </div>
+
+  <h2 class="list-heading">Upcoming</h2>
+  <ol class="event-list" data-events-upcoming>
+    {%- for e in upcoming %}
+    {% include event-row.html event=e %}
+    {%- endfor %}
+  </ol>
+  <p class="empty" data-empty-upcoming{% if upcoming.size > 0 %} hidden{% endif %}>No sessions are scheduled at the moment. New sessions are announced on the mailing list.</p>
+
+  <h2 class="list-heading">Past sessions</h2>
+  <ol class="event-list" data-events-past>
+    {%- for e in past %}
+    {% include event-row.html event=e past=true %}
+    {%- endfor %}
+  </ol>
+  <p class="empty" data-empty-past{% if past.size > 0 %} hidden{% endif %}>Past sessions will be listed here, with their slides and recordings.</p>
+  {%- if site.prototype %}
+  {% include example-past.html %}
+  {%- endif %}
+
+  <aside class="callout">
+    <div>
+      <h2>Never miss a session</h2>
+      <p>Join the mailing list, or subscribe to the seminar calendar in your calendar app.</p>
+    </div>
+    <div class="callout-actions">
+      <a class="btn btn-primary" href="{{ '/subscribe/' | relative_url }}">Mailing list</a>
+      <a class="btn btn-secondary" href="{{ '/subscribe/' | relative_url }}#calendar">Calendar feed</a>
+    </div>
+  </aside>
+</div>
