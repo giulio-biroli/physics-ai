@@ -21,7 +21,7 @@ venue:
   address: 24 rue Lhomond, 75005 Paris
   map: https://www.openstreetmap.org/search?query=24%20rue%20Lhomond%2C%20Paris
 
-contact: organisers@example.org        # placeholder
+contact: giulio.biroli@ens.fr
 
 mailing_list:
   provider: google_groups
