@@ -2,21 +2,32 @@
 layout: default
 ---
 {%- assign events = site.events | sort: "date" -%}
-{%- for e in events %}{% if e.url == page.url %}{% assign number = forloop.index %}{% endif %}{% endfor -%}
+{%- assign number = 0 -%}
+{%- for e in events %}{% unless e.notice %}{% assign number = number | plus: 1 %}{% if e.url == page.url %}{% assign page_number = number %}{% endif %}{% endunless %}{% endfor -%}
 {%- assign e_end = page.end | default: page.date -%}
-{%- capture g_text %}{{ site.title }}: {{ page.title }}{% endcapture -%}
+{%- capture g_text %}{% if page.calendar_title %}{{ page.calendar_title }}{% else %}{{ site.title }}: {{ page.title }}{% endif %}{% endcapture -%}
 {%- capture g_details %}Speaker: {{ page.speaker }}
 {{ page.url | absolute_url }}{% endcapture -%}
 {%- capture g_location %}Room {{ page.room }}, {{ site.venue.name }}, {{ site.venue.address }}{% endcapture -%}
+{%- if page.notice %}
+<section class="page-head">
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ '/programme/' | relative_url }}">Programme</a></nav>
+    <h1>{{ page.title }} on {{ page.date | date: "%-d %B %Y" }}</h1>
+    {{ content }}
+  </div>
+</section>
+<div class="container page-body"></div>
+{%- else %}
 <div class="container">
   <div class="event-layout">
     <article>
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ '/programme/' | relative_url }}">Programme</a> / Session {{ number }}</nav>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="{{ '/programme/' | relative_url }}">Programme</a> / Session {{ page_number }}</nav>
       <div class="event-meta">{% include tag.html key=page.theme %}<span class="event-kind">{{ page.format }}</span></div>
       <h1 class="event-heading">{{ page.title }}</h1>
       <p class="event-byline"><strong>{{ page.speaker }}</strong>{% if page.affiliation %} · {{ page.affiliation }}{% endif %}</p>
 
-      <h2 class="sub-heading">Abstract</h2>
+      <h2 class="sub-heading">{{ page.heading | default: "Abstract" }}</h2>
       <div class="prose">{{ content }}</div>
 
       {%- if page.bio %}
@@ -39,7 +50,7 @@ layout: default
     <aside class="event-aside" aria-label="Practical information">
       <dl class="facts">
         <div><dt>Date</dt><dd>{{ page.date | date: "%A %-d %B %Y" }}</dd></div>
-        <div><dt>Time</dt><dd>{{ page.date | date: "%H:%M" }}–{{ e_end | date: "%H:%M" }} <span class="muted">(Paris time)</span></dd></div>
+        <div><dt>Time</dt><dd>{{ page.date | date: "%H:%M" }}–{{ e_end | date: "%H:%M" }} <span class="muted">(Paris time)</span>{% if page.coffee %}, followed by a coffee break{% endif %}</dd></div>
         <div><dt>Place</dt><dd>Room {{ page.room }}<br>{{ site.venue.name }}<br>{{ site.venue.address }}<br><a href="{{ site.venue.map }}">Map</a></dd></div>
         {%- if page.online %}
         <div><dt>Online</dt><dd>{% if page.online contains 'http' %}<a href="{{ page.online }}">Video link</a>{% else %}{{ page.online }}{% endif %}</dd></div>
@@ -58,3 +69,4 @@ layout: default
     </aside>
   </div>
 </div>
+{%- endif %}

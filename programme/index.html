@@ -8,13 +8,13 @@ title: Programme
 {%- assign past = "" | split: "" -%}
 {%- for e in events -%}
   {%- assign e_end = e.end | default: e.date | date: "%s" | plus: 0 -%}
-  {%- if e_end >= now %}{% assign upcoming = upcoming | push: e %}{% else %}{% assign past = past | push: e %}{% endif -%}
+  {%- if e_end >= now %}{% assign upcoming = upcoming | push: e %}{% elsif e.notice == nil %}{% assign past = past | push: e %}{% endif -%}
 {%- endfor -%}
 {%- assign past = past | reverse -%}
 <section class="page-head">
   <div class="container">
     <h1>Programme</h1>
-    <p>Sessions take place in room {{ site.venue.room }} at the {{ site.venue.name }}, {{ site.venue.address }}. They take different formats: talks followed by an open discussion, round tables, series of informal presentations. Times are given in Paris time.</p>
+    <p>Sessions take place on Thursdays from 13:00 to 14:00, followed by a coffee break, in room {{ site.venue.room }} at the {{ site.venue.name }}, {{ site.venue.address }}. They take different formats: talks followed by an open discussion, round tables, series of informal presentations.</p>
   </div>
 </section>
 <div class="container page-body">
@@ -32,6 +32,7 @@ title: Programme
     {%- endfor %}
   </ol>
   <p class="empty" data-empty-upcoming{% if upcoming.size > 0 %} hidden{% endif %}>No sessions are scheduled at the moment. New sessions are announced on the mailing list.</p>
+  <p class="empty" data-empty-filter hidden>No sessions announced yet in this strand.</p>
 
   <h2 class="list-heading">Past sessions</h2>
   <ol class="event-list" data-events-past>

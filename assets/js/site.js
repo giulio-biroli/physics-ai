@@ -24,7 +24,7 @@
     var rows = Array.prototype.slice.call(upcomingList.querySelectorAll('[data-end]'));
     rows.reverse().forEach(function (row) {
       if (Date.parse(row.getAttribute('data-end')) < now) {
-        if (pastList) pastList.insertBefore(row, pastList.firstChild);
+        if (pastList && !row.classList.contains('event-row--notice')) pastList.insertBefore(row, pastList.firstChild);
         else row.parentNode.removeChild(row);
       }
     });
@@ -63,9 +63,14 @@
   if (filters.length) {
     var apply = function (key) {
       filters.forEach(function (f) { f.setAttribute('aria-pressed', String(f.getAttribute('data-filter') === key)); });
-      document.querySelectorAll('.event-row[data-theme]').forEach(function (row) {
+      document.querySelectorAll('.event-row').forEach(function (row) {
         row.hidden = key !== 'all' && row.getAttribute('data-theme') !== key;
       });
+      var filterEmpty = document.querySelector('[data-empty-filter]');
+      if (filterEmpty && upcomingList) {
+        var shown = upcomingList.querySelectorAll('.event-row:not([hidden])').length;
+        filterEmpty.hidden = key === 'all' || shown > 0;
+      }
     };
     filters.forEach(function (f) {
       f.addEventListener('click', function () {

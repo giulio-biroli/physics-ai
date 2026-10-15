@@ -29,7 +29,7 @@ mailing_list:
   live: true                           # false shows a "not connected yet" notice instead
 
 repository: giulio-biroli/physics-ai   # GitHub repository holding the site source
-prototype: true                        # "under construction" banner, and asks search engines not to index the site
+prototype: true                        # "under construction" banner and example card; asks search engines not to index the site
 
 # --- Jekyll ---------------------------------------------------------------
 collections:

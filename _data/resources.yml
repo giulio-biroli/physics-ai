@@ -4,10 +4,6 @@
 
 - section: Notes and guides
   entries:
-    - title: How the figure on our home page is made
-      type: Note
-      url: /blog/about-the-figure/
-      description: Nine figures from across physics, each shown on its own with what it represents and how it is computed.
     - title: Working with AI in research — practical notes for students and PhD candidates
       type: Guide
       status: In preparation

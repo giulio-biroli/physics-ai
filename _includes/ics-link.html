@@ -6,7 +6,7 @@
    data-ics-file="{{ e.slug }}.ics"
    data-ics-start="{{ e.date | date: '%Y%m%dT%H%M%S' }}"
    data-ics-end="{{ e_end | date: '%Y%m%dT%H%M%S' }}"
-   data-ics-title="{{ site.title }}: {{ e.title }}"
+   data-ics-title="{% if e.calendar_title %}{{ e.calendar_title }}{% else %}{{ site.title }}: {{ e.title }}{% endif %}"
    data-ics-speaker="{{ e.speaker }}"
    data-ics-location="Room {{ e.room }}, {{ site.venue.name }}, {{ site.venue.address }}"
    data-ics-url="{{ e.url | absolute_url }}">{{ include.label }}</a>

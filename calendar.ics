@@ -28,13 +28,15 @@ END:STANDARD
 END:VTIMEZONE
 {% assign events = site.events | sort: "date" -%}
 {% for e in events -%}
+{% if e.notice %}{% continue %}{% endif -%}
 {% assign e_end = e.end | default: e.date -%}
 BEGIN:VEVENT
 UID:{{ e.slug }}@physics-in-the-age-of-ai
 DTSTAMP:{{ site.time | date: "%Y%m%dT%H%M%SZ" }}
 DTSTART;TZID=Europe/Paris:{{ e.date | date: "%Y%m%dT%H%M%S" }}
 DTEND;TZID=Europe/Paris:{{ e_end | date: "%Y%m%dT%H%M%S" }}
-SUMMARY:{{ site.title }}: {{ e.title | replace: ",", "\," | replace: ";", "\;" }}
+{% capture summary %}{% if e.calendar_title %}{{ e.calendar_title }}{% else %}{{ site.title }}: {{ e.title }}{% endif %}{% endcapture -%}
+SUMMARY:{{ summary | replace: ",", "\," | replace: ";", "\;" }}
 LOCATION:Room {{ e.room }}\, {{ site.venue.name | replace: ",", "\," }}\, {{ site.venue.address | replace: ",", "\," }}
 DESCRIPTION:Speaker: {{ e.speaker | replace: ",", "\," | replace: ";", "\;" }}\n{{ e.url | absolute_url }}
 URL:{{ e.url | absolute_url }}

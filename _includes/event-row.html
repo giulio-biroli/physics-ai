@@ -1,5 +1,19 @@
 {%- assign e = include.event -%}
 {%- assign e_end = e.end | default: e.date -%}
+{%- if e.notice -%}
+<li class="event-row event-row--notice" data-end="{{ e_end | date_to_xmlschema }}">
+  <div class="event-link">
+    <div class="event-date">
+      <span class="event-day">{{ e.date | date: "%-d" }}</span>
+      <span class="event-month">{{ e.date | date: "%b %Y" }}</span>
+    </div>
+    <div class="event-body">
+      <h3 class="event-title">{{ e.title }}</h3>
+      <p class="event-speaker">{{ e.notice }}</p>
+    </div>
+  </div>
+</li>
+{%- else -%}
 <li class="event-row" data-theme="{{ e.theme }}" data-end="{{ e_end | date_to_xmlschema }}">
   <a class="event-link" href="{{ e.url | relative_url }}">
     <div class="event-date">
@@ -22,3 +36,4 @@
     <span class="event-arrow" aria-hidden="true">→</span>
   </a>
 </li>
+{%- endif %}

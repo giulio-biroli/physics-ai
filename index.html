@@ -5,9 +5,10 @@ figures: true
 {%- assign now = site.time | date: "%s" | plus: 0 -%}
 {%- assign events = site.events | sort: "date" -%}
 {%- assign upcoming = "" | split: "" -%}
+{%- assign sessions = "" | split: "" -%}
 {%- for e in events -%}
   {%- assign e_end = e.end | default: e.date | date: "%s" | plus: 0 -%}
-  {%- if e_end >= now %}{% assign upcoming = upcoming | push: e %}{% endif -%}
+  {%- if e_end >= now %}{% assign upcoming = upcoming | push: e %}{% unless e.notice %}{% assign sessions = sessions | push: e %}{% endunless %}{% endif -%}
 {%- endfor -%}
 <section class="hero">
   <div class="container hero-grid">
@@ -31,7 +32,7 @@ figures: true
             <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>
           </button>
           <span class="fig-now" data-figure-label>Astrophysics · Spiral galaxy</span>
-          <span class="fig-count" data-figure-count>1 / 9</span>
+          <span class="fig-count" data-figure-count>1 / 10</span>
           <button class="icon-btn" type="button" data-figure-next aria-label="Next figure" title="Next figure">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
@@ -44,7 +45,7 @@ figures: true
 
 <section class="next" aria-label="Next session">
   <div class="container">
-    {%- for e in upcoming %}
+    {%- for e in sessions %}
     {%- assign e_end = e.end | default: e.date %}
     <article class="next-card" data-next-card data-end="{{ e_end | date_to_xmlschema }}"{% unless forloop.first %} hidden{% endunless %}>
       <div class="date-tile" aria-hidden="true">
@@ -56,7 +57,7 @@ figures: true
         <p class="eyebrow"><strong>Next session</strong> <span class="countdown" data-countdown="{{ e.date | date_to_xmlschema }}"></span></p>
         <h2 class="next-title"><a href="{{ e.url | relative_url }}">{{ e.title }}</a></h2>
         <p class="next-line">{{ e.speaker }}{% if e.affiliation %} · {{ e.affiliation }}{% endif %}</p>
-        <p class="next-line">{{ e.date | date: "%A %-d %B %Y" }}, {{ e.date | date: "%H:%M" }}–{{ e_end | date: "%H:%M" }} (Paris time) · Room {{ e.room }}, {{ site.venue.address }}</p>
+        <p class="next-line">{{ e.date | date: "%A %-d %B %Y" }}, {{ e.date | date: "%H:%M" }}–{{ e_end | date: "%H:%M" }} (Paris time){% if e.coffee %}, followed by a coffee break{% endif %} · Room {{ e.room }}, {{ site.venue.address }}</p>
       </div>
       <div class="next-actions">
         <a class="btn btn-primary" href="{{ e.url | relative_url }}">Details</a>
@@ -64,7 +65,7 @@ figures: true
       </div>
     </article>
     {%- endfor %}
-    <p class="next-empty" data-next-empty{% if upcoming.size > 0 %} hidden{% endif %}>The next session will be announced soon. <a href="{{ '/subscribe/' | relative_url }}">Join the mailing list</a> to be notified.</p>
+    <p class="next-empty" data-next-empty{% if sessions.size > 0 %} hidden{% endif %}>The next session will be announced soon. <a href="{{ '/subscribe/' | relative_url }}">Join the mailing list</a> to be notified.</p>
   </div>
 </section>
 
