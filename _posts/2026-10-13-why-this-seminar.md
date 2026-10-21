@@ -11,9 +11,9 @@ We think this is the right moment to reflect together on how AI will transform t
 
 The seminar is organised around three kinds of talks:
 
-- **Perspectives** — overviews of how AI could transform the discipline, its practices and education.
+- **Perspectives** — overviews of how AI could transform the discipline, its practices and education; societal issues (sovereignty, energy consumption).
 - **Results** — the physics content of new results obtained with AI, and how AI was used to obtain them.
-- **Methods** — how to use AI well in physics, for researchers, PhD candidates and students.
+- **Methods** — how to use AI in physics, for researchers, PhD candidates and students.
 
 ## How to take part
 

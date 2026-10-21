@@ -12,9 +12,9 @@ This is the right time to reflect together on how AI will transform the way we d
 
 The seminar features talks on several aspects of this new era, in particular:
 
-- **Perspectives** — overviews of how AI could transform the discipline, its practices and education;
+- **Perspectives** — overviews of how AI could transform the discipline, its practices and education; societal issues (sovereignty, energy consumption);
 - **Results** — the physics content of new results obtained with AI, and how AI was used to obtain them;
-- **Methods** — how to use AI well in physics, for researchers, PhD candidates and students.
+- **Methods** — how to use AI in physics, for researchers, PhD candidates and students.
 
 ## Format
 
